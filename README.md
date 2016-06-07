@@ -85,6 +85,8 @@ Add the JavaScript that will attach the service to the div's above.
     <script>
       searchandiser({
         customerId: 'crateandbarreldemo',
+        area: 'Production',
+        collection 'default',
         structure: {
           title: 'title',
           image: 'wideImage',
