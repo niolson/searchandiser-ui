@@ -30,3 +30,4 @@ searchandiser({
 searchandiser.search('TaylorMade');
 
 searchandiser.attach('raw-results', '#test');
+searchandiser.attach('raw-query', '#ctl00_wpm_SearchPage_ctl04_SearchPhrase');
