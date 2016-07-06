@@ -15,3 +15,32 @@
 .desc-bottom {
   text-align: left;
 }
+
+.gb-nav {
+    padding-left: 0.5em;
+}
+
+.gb-nav__title {
+    text-decoration: underline
+}
+
+ul.gb-nav__list {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+li.gb-ref {
+     list-style-type: none;
+}
+
+.gb-ref__badge:before {
+    content: '('
+}
+
+.gb-ref__badge:after {
+    content: ')'
+}
+
+.gb-nav__title {
+    margin-top: 0;
+}
