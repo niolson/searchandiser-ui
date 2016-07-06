@@ -1,0 +1,16 @@
+---
+# The client key to send queries with these must be set for all functionality to work.
+clientKey: redacted
+customerId: golfsmith
+
+# If no key is sent to the semantic layer only the title is sent, or the fields
+# defined below.
+fields:
+  - title
+  - Mfr_Name
+  - Image_URL
+  - Category
+  - Regular_Price
+  - Sale_Price
+  - Buy_URL
+

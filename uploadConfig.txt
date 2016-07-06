@@ -1,0 +1,34 @@
+clientKey: redacted
+fieldDefinition: { name: "Retailer_Name" }
+fieldDefinition: { name: "id" }
+fieldDefinition: { name: "Mfr_Name", search: true }
+fieldDefinition: { name: "Mfr_Part_No" }
+fieldDefinition: { name: "UPC_EAN" }
+fieldDefinition: { name: "Group_ID" }
+fieldDefinition: { name: "Primary_Product" }
+fieldDefinition: { name: "Variation_Names", search: true }
+fieldDefinition: { name: "Variation_Values" }
+fieldDefinition: { name: "SKU_Name_fr", search: true }
+fieldDefinition: { name: "Short_Desc_fr" }
+fieldDefinition: { name: "title", search: true }
+fieldDefinition: { name: "Short_Desc_en" }
+fieldDefinition: { name: "Long_Desc" }
+fieldDefinition: { name: "Buy_URL" }
+fieldDefinition: { name: "Image_URL" }
+fieldDefinition: { name: "Category" }
+fieldDefinition: { name: "Keywords" }
+fieldDefinition: { name: "Condition" }
+fieldDefinition: { name: "Currency" }
+fieldDefinition: { name: "Regular_Price" }
+fieldDefinition: { name: "Sale_Price" }
+fieldDefinition: { name: "Availability" }
+fieldDefinition: { name: "Qty_In_Stock" }
+fieldDefinition: { name: "Shipping_Cost" }
+fieldDefinition: { name: "Shipping_Status" }
+fieldDefinition: { name: "Promo_Text" }
+fieldDefinition: { name: "Ship_Promo_Text" }
+fieldDefinition: { name: "Live_Date" }
+fieldDefinition: { name: "Category_Hierarchy" }
+fieldDefinition: { name: "RTC_URL" }
+fieldDefinition: { name: "Product_ID" }
+
