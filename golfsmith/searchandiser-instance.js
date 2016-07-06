@@ -27,7 +27,8 @@ searchandiser({
   stylish: true
 });
 
-searchandiser.search('TaylorMade');
+searchandiser.search('');
 
 searchandiser.attach('raw-results', '#test');
 searchandiser.attach('raw-query', '#ctl00_wpm_SearchPage_ctl04_SearchPhrase');
+searchandiser.attach('available-navigation', 'div.searchFilterPanel')
