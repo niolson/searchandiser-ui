@@ -14,8 +14,7 @@ searchandiser({
   sayt: {
   products: 12,
   queries: 8,
-  // autoSearch: false,
-  // highlight: false,
+   autoSearch: false,
   categoryField: 'QtopRatedType',
   navigationNames: {
   brand: 'Brand'
@@ -33,3 +32,4 @@ searchandiser.attach('raw-query', '#ctl00_wpm_SearchPage_ctl04_SearchPhrase', {
     autoSearch: false
 });
 searchandiser.attach('available-navigation', '.searchFilterBody');
+searchandiser.attach('paging', '.paging');

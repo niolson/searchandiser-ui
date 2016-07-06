@@ -1,3 +1,5 @@
+/* Items display */
+
 #ctl00_wpm_SearchPage_ctl09_ProductList {
   width: 784px;
 }
@@ -8,11 +10,12 @@
   list-style: outside none none;
   margin: 0px;
   padding: 0px;
-  justify-content: space-around;
 }
 
 .gb-results__item {
   width: 190px;
+  margin-right: 5px;
+  margin-left: 1px;
 }
 
 .gb-product > div {
@@ -35,6 +38,8 @@
   width: 33.833px;
   padding-right: 5px;
 }
+
+/* Navigation */
 
 .gb-nav {
     padding-left: 0.5em;
@@ -64,4 +69,30 @@ li.gb-ref {
 .gb-nav__title {
     margin-top: 0;
 }
->>>>>>> BBD-31
+
+.gb-ref__link:hover {
+    color: black;
+}
+
+/* Pagination */
+
+div.paging {
+  text-align: center;
+}
+
+.gb-paging__link.disabled {
+  visibility: hidden;
+}
+
+.gb-paging__link.first {
+  float: left;
+}
+
+.gb-paging__link.last {
+  float: right;
+}
+
+.gb-paging span {
+  display: none;
+}
+
