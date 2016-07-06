@@ -22,13 +22,14 @@ searchandiser({
   },
   allowedNavigations: ['brand']
   },
-  stylish: true
+  stylish: false
 });
 
-searchandiser.search('TaylorMade');
+searchandiser.search('');
+
 
 searchandiser.attach('raw-results', '#ctl00_wpm_SearchPage_ctl09_ProductList');
-searchandiser.attach('raw-results', '#test');
 searchandiser.attach('raw-query', '#ctl00_wpm_SearchPage_ctl04_SearchPhrase', {
     autoSearch: false
 });
+searchandiser.attach('available-navigation', '.searchFilterBody');
