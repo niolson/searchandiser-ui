@@ -1560,12 +1560,12 @@ Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tctl00$wpm$Searc
                         </div>
                         <div style="padding: 0 0 5px 5px;">
                             <div class="desc-bottom" if="{ allMeta[struct.price] != allMeta[struct.salePrice] }">
-                                <div class="MSRP_Price">Orig: <span class="msrp">${ allMeta[struct.price] }</span></div>
+                                <div class="MSRP_Price">Orig: <span class="msrp">${ allMeta[struct.price].toFixed(2) }</span></div>
                                 <div class="Save_Price">SAVE: <span class="msrp">${ (allMeta[struct.price] - allMeta[struct.salePrice]).toFixed(2) }</span></div>
-                                <div class="Now_Price"><span>${ allMeta[struct.salePrice] }</span></div>
+                                <div class="Now_Price"><span>${ allMeta[struct.salePrice].toFixed(2) }</span></div>
                             </div>
                             <div class="desc-bottom" if="{ allMeta[struct.price] == allMeta[struct.salePrice] }">
-                                <div class="Now_Price"><span>${ allMeta[struct.price] }</span></div>
+                                <div class="Now_Price"><span>${ allMeta[struct.price].toFixed(2) }</span></div>
                             </div>
                             <div class="arrow-bottom">
                                 <a href="{ allMeta[struct.buyUrl] }">
