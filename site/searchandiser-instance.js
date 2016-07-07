@@ -1,6 +1,7 @@
 searchandiser({
     customerId: 'schoolspecialty',
     collection: 'schoolspecialty1products10206',
+    area: 'Dev',
     structure: {
         title: 'title',
         description: 'description',
@@ -58,3 +59,4 @@ searchandiser.attach('raw-query', '#searchText', {
 
 searchandiser.attach('results', 'div.grid.margin-top10');
 
+searchandiser.attach('available-navigation', '#search-page-facets div.facets div.section:nth-child(2)');
