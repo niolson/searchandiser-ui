@@ -1,5 +1,6 @@
 clientKey: redacted
 customerId: schoolspecialty
 collection: schoolspecialty1products10206
+area: Dev
 fields: 
   - "*"
