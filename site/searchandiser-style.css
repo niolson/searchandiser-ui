@@ -1,0 +1,36 @@
+.gb-sayt-target {
+    top: 41px;
+    z-index: 100;
+}
+
+.gb-sayt li {
+    position: relative;
+    margin: 0;
+    padding: 3px 1em 3px .4em;
+    cursor: pointer;
+    min-height: 0;
+    list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+}
+
+.gb-sayt li a {
+    color: #969696;
+    font-size: 12px;
+    text-decoration: none;
+    outline: none;
+}
+
+li.gb-autocomplete__item.active {
+    border: none;
+    background-image: none;
+    font-weight: normal;
+    background-color: #f5f5f5;
+    margin-left: -1px;
+}
+
+li.gb-autocomplete__item.active a {
+    color: #00A9CC;
+}
+
+.gb-autocomplete__link b {
+    font-weight: normal;
+}
