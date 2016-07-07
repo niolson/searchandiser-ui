@@ -1,5 +1,6 @@
 searchandiser({
     customerId: 'schoolspecialty',
+    collection: 'schoolspecialty1products10206',
     structure: {
         title: 'title',
         description: 'description',
@@ -44,8 +45,16 @@ searchandiser({
     sayt: {
         products: 4,
         queries: 5
-    }
+    },
+    
+    stylish: false
 });
 
 searchandiser.search('');
+
+searchandiser.attach('raw-query', '#searchText', {
+    autoSearch: true
+});
+
+searchandiser.attach('results', 'div.grid.margin-top10');
 
