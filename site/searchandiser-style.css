@@ -1,0 +1,35 @@
+#search-page-facets div.facets div.section div.gb-nav {
+    padding: 0;
+    margin-top: 20px;
+}
+
+div.gb-nav h4.gb-nav__title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    color: #A6A6A6;
+    margin: 0px;
+    padding: 0px 0px 5px;
+    text-transform: uppercase;
+    line-height: 20px;
+}
+
+.facets a.gb-ref__link {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    color: #4d4d4d;
+}
+
+.facets a.gb-ref__link:hover {
+    text-decoration: none;
+    color: #4d4d4d;
+}
+
+.gb-ref__badge:before {
+    content: '(';
+}
+
+.gb-ref__badge:after {
+    content: ')';
+}
