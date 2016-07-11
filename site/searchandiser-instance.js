@@ -1,6 +1,7 @@
 searchandiser({
     customerId: 'schoolspecialty',
     collection: 'schoolspecialty1products10206',
+    pageSize: 20,
     structure: {
         title: 'title',
         description: 'description',
@@ -13,7 +14,6 @@ searchandiser({
         taxonomyLevel1: 'TAXONOMY_LEV1',
         taxonomyLevel2: 'TAXONOMY_LEV2',
         taxonomyLevel3: 'TAXONOMY_LEV3',
-        
         //Pens
         brand: 'Brand',
         features: 'FEATURES',
@@ -25,7 +25,6 @@ searchandiser({
         allergens: 'Allergens',
         color: 'Color',
         pencilLeadDiameter: 'Pencil_Lead_Diameter',
-        
         //Table
         environmentallyFriendly: 'Environmentally_Friendly',
         safety: 'Safety',
@@ -36,17 +35,14 @@ searchandiser({
         productWidth: 'Product_Width',
         vinylColor: 'Vinyl_Color', // test case has a bug here....
         weightCapacity: 'Weight_Capacity',
-        
         //Ball
         diameter: 'Diameter',
         material: 'Material'
     },
-    
     sayt: {
         products: 4,
         queries: 5
     },
-    
     stylish: false
 });
 
@@ -57,4 +53,11 @@ searchandiser.attach('raw-query', '#searchText', {
 });
 
 searchandiser.attach('results', 'div.grid.margin-top10');
+
+searchandiser.attach('paging', 'ul.paging', {
+    showPages: true
+});
+$('.gb-paging__link.first').text('1');
+searchandiser.flux.on(searchandiser.flux.RESULTS,
+        () => $('.gb-paging__link.last').text(searchandiser.flux.page.total));
 

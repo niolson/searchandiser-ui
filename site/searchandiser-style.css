@@ -34,3 +34,29 @@ li.gb-autocomplete__item.active a {
 .gb-autocomplete__link b {
     font-weight: normal;
 }
+
+div.gb-paging {
+    display: flex;
+}
+
+.gb-paging__link > .gb-paging__icon {
+    display: none;
+}
+
+.gb-paging__link.next, .gb-paging__link.prev {
+    text-transform: uppercase;
+}
+
+.gb-paging__link.prev {
+    order: 999;
+}
+
+.gb-paging__link.next {
+    order: 1001;
+}
+
+div.gb-paging:after {
+    content: '|';
+    order: 1000;
+}
+
