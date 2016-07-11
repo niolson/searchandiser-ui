@@ -33,4 +33,4 @@ searchandiser.attach('raw-query', '#ctl00_wpm_SearchPage_ctl04_SearchPhrase', {
 });
 searchandiser.attach('available-navigation', '.searchFilterBody');
 searchandiser.attach('paging', '.paging');
-
+searchandiser.attach('raw-submit', '#ctl00_wpm_SearchPage_ctl04_SearchButton');
