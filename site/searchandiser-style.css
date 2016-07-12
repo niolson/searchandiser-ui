@@ -60,3 +60,25 @@ div.gb-paging:after {
     order: 1000;
 }
 
+.gb-paging__link.prev, div.gb-paging > .gb-paging__link.next {
+    font-weight: bold;
+    padding: 0;
+}
+
+.gb-paging__link.prev:hover, .gb-paging__link.next:hover {
+    background: none;
+    border-radius: 0;
+    color: #00a9cc;
+    text-decoration: underline;
+}
+
+.gb-paging__link.first.disabled, 
+.gb-paging__link.last.disabled, 
+.gb-paging__link.prev.disabled,
+.gb-paging__link.next.disabled {
+    opacity: 1;
+}
+
+.school-specialty-hidden-paging-link {
+    display: none !important; 
+}

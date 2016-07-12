@@ -57,7 +57,28 @@ searchandiser.attach('results', 'div.grid.margin-top10');
 searchandiser.attach('paging', 'ul.paging', {
     showPages: true
 });
-$('.gb-paging__link.first').text('1');
-searchandiser.flux.on(searchandiser.flux.RESULTS,
-        () => $('.gb-paging__link.last').text(searchandiser.flux.page.total));
 
+$('.gb-paging__link.first').text('1');
+// Rename "LAST" to number of last page
+searchandiser.flux.on(searchandiser.flux.RESULTS,
+        () => {
+            const totalNoPages = searchandiser.flux.page.total + 1;
+            $('.gb-paging__link.last').text(totalNoPages);
+
+            /*
+            Hide FIRST if 1 is present.
+            Hide LAST if last page is present.
+            Hide PREV if on first page.
+            Hide NEXT if on last page.
+            */
+
+            $('ul.gb-paging__pages a').each((index, element) => {
+                if ($(element).text() == '1' || $(element).text() == totalNoPages) {
+                    $(element).addClass('school-specialty-hidden-paging-link');
+                    return false;
+                }
+            });
+
+
+
+        });
