@@ -1,6 +1,8 @@
 <gb-available-refinement>
   <li class="gb-ref { parentOpts.style() }">
     <a class="gb-ref__link" href="#" onclick={ send }>
+      <input type="checkbox" class="gb-ref__or-checkbox" if={ nav.or } checked={ ref.selected }>
+      { ref.selected }
       <span class="gb-ref__title">{ ref.type === 'Value' ? ref.value : ref.low + ' - ' + ref.high }</span>
       <span class="gb-filler"></span>
       <span class="gb-ref__badge" if={ badge }>{ ref.count }</span>
@@ -8,9 +10,9 @@
   </li>
 
   <script>
-    const utils = require('../../utils');
+    const { toRefinement } = require('../../utils');
     this.parentOpts = this.parent.parent.opts;
-    this.send = () => this.parentOpts.flux.refine(utils.toRefinement(this.ref, this.nav));
+    this.send = () => this.parentOpts.flux.refine(toRefinement(this.ref, this.nav));
   </script>
 
   <style scoped>
