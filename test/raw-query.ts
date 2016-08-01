@@ -59,31 +59,28 @@ describe('gb-raw-query tag', () => {
       expect(event).to.eq('keydown');
       cb({ keyCode: 13 });
     }));
-
+    
     it('should register for keydown', (done) => {
-      sinon.stub(window.location, 'replace', (url) => {
-        expect(url).to.eq('search?q=original');
-        done();
-      });
       mount({
         reset: (query) => {
           expect(query).to.eq('original');
-          done();
         }
       }, { sayt: false, autoSearch: false });
+      expect(window.location.pathname).to.eq('/search?q=original');
+      done();
     });
 
     it('should customise search URL', (done) => {
-      sinon.stub(window.location, 'replace', (url) => {
-        expect(url).to.eq('/productSearch?query=original');
-        done();
-      });
+      expect(window.location.pathname).to.eq('/context.html');
+      window.history.pushState("search", "Search", "/search");
+      expect(window.location.pathname).to.eq('/search');
       mount({
         reset: (query) => {
           expect(query).to.eq('original');
-          done();
         }
       }, { sayt: false, autoSearch: false, searchUrl: '/productSearch', queryParam: 'query' });
+      expect(window.location.pathname).to.eq('/productSearch?query=original');
+      done();
     });
   });
 });
