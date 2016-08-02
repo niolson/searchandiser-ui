@@ -24,13 +24,23 @@ module.exports = function(config) {
     client: {
       captureConsole: true
     },
-    browsers: ['PhantomJS'],
+    browsers: ['PhantomJS', 'PhantomJS_exposed'],
     reporters: ['mocha'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
     singleRun: true,
-    concurrency: Infinity
+    concurrency: Infinity,
+    customLaunchers: {
+      'PhantomJS_exposed': {
+        base: 'PhantomJS',
+        options: {
+          onCallback: function(fn) {
+            fn();
+          }
+        }
+      }
+    }
   });
 };
