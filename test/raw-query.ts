@@ -93,14 +93,10 @@ describe('gb-raw-query tag', () => {
     //TODO: Mock out sayt object in gb-sayt.tag in order to emulate search results
     // That way we could check the appearance of search results in the DOM
     //For now, assume groupby/sayt and gb-sayt.tag work
-
-    this.timeout(2000000);
-
     const flux = mockFlux({})
     flux.on('autocomplete', () => {
-      console.log('wheremi auto')
       done();
-    })
+    });
 
     const tag = riot.mount('input', TAG, {
        flux: Object.assign(mockFlux({}), {
@@ -125,7 +121,7 @@ describe('gb-raw-query tag', () => {
     searchBox.dispatchEvent(inputEvent);
   });
 
-  it.only('should emit autocomplete:hide when enter is pressed', (done) => {
+  it('should emit autocomplete:hide when enter is pressed', (done) => {
     const SAYT_MINIMUM_CHARACTERS = 1;
     let autocompleteHappened = false;
 
@@ -134,6 +130,11 @@ describe('gb-raw-query tag', () => {
          emit: (eventName: string) => {
            if (eventName === 'autocomplete') {
              autocompleteHappened = true;
+
+             // Press Enter key
+             const e = new Event('keydown');
+             Object.assign(e, { keyCode: ENTER_KEY });
+             document.querySelector('input').dispatchEvent(e);
            }
            else if (eventName === 'autocomplete:hide') {
              expect(autocompleteHappened).to.be.true;
@@ -148,17 +149,12 @@ describe('gb-raw-query tag', () => {
        }
     })[0];
     const searchBox:HTMLInputElement = <HTMLInputElement>(tag.root);
-    // Create a string of length SAYT_MINIMUM_CHARACTERS + 1
+    // Create a string of length (SAYT_MINIMUM_CHARACTERS + 1)
     searchBox.value = new Array((SAYT_MINIMUM_CHARACTERS+1)+1).join('@');
 
     const inputEvent = document.createEvent("HTMLEvents");
     inputEvent.initEvent('input', true, false);
     document.querySelector('input').dispatchEvent(inputEvent);
-
-    const enterKeyEvent:KeyboardEvent = document.createEvent("KeyboardEvent");
-    enterKeyEvent.initKeyboardEvent('keypress', true, true,
-      null, 'Enter', 0, '', false, '');
-    searchBox.dispatchEvent(enterKeyEvent);
   });
 });
 
