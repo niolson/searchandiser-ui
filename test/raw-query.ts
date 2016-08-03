@@ -89,7 +89,7 @@ describe('gb-raw-query tag', () => {
     });
   });
 
-  it('should emit autocomplete when there is input', (done) => {
+  it.skip('should emit autocomplete when there is input', (done) => {
     //TODO: Mock out sayt object in gb-sayt.tag in order to emulate search results
     // That way we could check the appearance of search results in the DOM
     //For now, assume groupby/sayt and gb-sayt.tag work
@@ -124,6 +124,7 @@ describe('gb-raw-query tag', () => {
   it('should emit autocomplete:hide when enter is pressed', (done) => {
     const SAYT_MINIMUM_CHARACTERS = 1;
     let autocompleteHappened = false;
+
 
     const tag = riot.mount('input', TAG, {
        flux: Object.assign(mockFlux({}), {
