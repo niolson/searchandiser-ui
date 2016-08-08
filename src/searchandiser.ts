@@ -52,8 +52,8 @@ export type Component = 'query' |
 export interface ProductStructure {
   title?: string;
   image?: string;
-  imageOperator?: (_: string) => string;
   description?: string;
+  _transform?: (original: any) => any;
 }
 
 export interface SearchandiserConfig {
