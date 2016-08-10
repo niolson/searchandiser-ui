@@ -19,7 +19,9 @@ export class Results {
   }
 
   updateRecords(records) {
-    this.update({ records });
+    this.update({ records: records.map((record) => Object.assign(record, {
+      allMeta: this.struct._transform(record.allMeta)
+    }))});
   }
 
   userStyle(key: string) {
