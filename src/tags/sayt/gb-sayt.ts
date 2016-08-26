@@ -81,24 +81,38 @@ export class Sayt {
     this.rewriteQuery(query);
   }
 
-  processResults(result) {
-    let categoryResults = [];
-    if (result.searchTerms && result.searchTerms[0].value === this.originalQuery) {
+  extractCategoryResults(result, isAllCategoriesEnabled) {
+    if (this.categoryField
+      && result.searchTerms) {
       const categoryQuery = result.searchTerms[0];
-      result.searchTerms.splice(0, 1);
-
-      if (this.categoryField && categoryQuery.additionalInfo[this.categoryField]) {
-        categoryResults = categoryQuery.additionalInfo[this.categoryField]
-          .map((value) => ({
-            category: value,
-            value: categoryQuery.value
-          })).slice(0, 3);
-        categoryResults.unshift({
-          category: 'All Departments',
-          value: categoryQuery.value
-        });
+      if (categoryQuery.additionalInfo
+        && Array.isArray(categoryQuery.additionalInfo[this.categoryField])) {
+        return categoryQuery.additionalInfo[this.categoryField]
+          .reduce((acc, value) => {
+            acc.push({
+              category: value,
+              value: categoryQuery.value
+            });
+            return acc;
+          }, ((isAllCategoriesEnabled) ? [{
+            category: 'All Departments',
+            value: categoryQuery.value,
+            send: this.search
+          }]
+            : []));
       }
     }
+    return [];
+  }
+
+  processResults(result) {
+    let categoryResults = [];
+    const isAllCategoriesEnabled = true;
+    const maximumNoCategorySuggestions = 4;
+    if (this.categoryField) {
+      categoryResults = this.extractCategoryResults(result, true).slice(0, maximumNoCategorySuggestions);
+    }
+
     const navigations = result.navigations ? result.navigations
       .map((nav) => Object.assign(nav, { displayName: this.saytConfig.navigationNames[nav.name] || nav.name }))
       .filter(({name}) => this.saytConfig.allowedNavigations.includes(name)) : [];
