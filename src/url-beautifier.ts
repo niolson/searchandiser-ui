@@ -1,4 +1,5 @@
 import { Query, SelectedRefinement, SelectedValueRefinement, SelectedRangeRefinement } from 'groupby-api';
+import URI = require('urijs');
 
 export class UrlBeautifier {
 
@@ -10,6 +11,9 @@ export class UrlBeautifier {
   };
   private generator: UrlGenerator = new UrlGenerator(this);
   private parser: UrlParser = new UrlParser(this);
+
+  build = this.generator.build;
+  parse = this.parser.parse;
 
   constructor(config: BeautifierConfig = {}) {
     Object.assign(this.config, config);
@@ -51,11 +55,14 @@ export class UrlGenerator {
 
     // add remaining refinements
     if (origRefinements.length) {
-      const refinementString = origRefinements.map(this.stringifyRefinement).join('~');
-      uri.query = origRefinements.map(this.stringifyRefinement).join('~');
+      uri.query = origRefinements
+        .sort((lhs, rhs) => lhs.navigationName.localeCompare(rhs.navigationName))
+        .map(this.stringifyRefinement)
+        .join('~');
     }
 
     let url = `/${uri.path.map((path) => encodeURIComponent(path)).join('/')}`;
+    if (this.config.suffix) url += `/${this.config.suffix.replace(/^\/+/, '')}`;
     if (uri.query) url += `?${this.config.extraRefinementsParam}=${encodeURIComponent(uri.query)}`;
 
     return url.replace(/\s|%20/, '+');
@@ -97,15 +104,66 @@ export class UrlGenerator {
 export class UrlParser {
 
   config: BeautifierConfig;
+  suffixRegex: RegExp;
 
   constructor({ config }: UrlBeautifier) {
     this.config = config;
+    this.suffixRegex = new RegExp(`^${this.config.suffix}`);
   }
 
-  parse(url: string): Query {
+  parse(rawUrl: string): Query {
+    const url = URI.parse(rawUrl);
+    const paths = url.path.split('/').filter((val) => val);
 
+    if (paths[paths.length - 1] === this.config.suffix) paths.pop();
 
-    return null;
+    const keys = (paths.pop() || '').split('');
+    const map = this.generateRefinementMapping();
+    const query = new Query();
+
+    if (paths.length !== keys.length) throw new Error('token reference is invalid');
+
+    for (let i = 0; i < keys.length; i++) {
+      if (keys[i] === this.config.queryToken) {
+        query.withQuery(this.decode(paths[i]));
+      } else {
+        query.withSelectedRefinements(...this.extractRefinements(paths[i], map[keys[i]]));
+      }
+    }
+
+    const unmappedRefinements = URI.parseQuery(url.query)[this.config.extraRefinementsParam];
+    if (unmappedRefinements) query.withSelectedRefinements(...this.extractUnmapped(unmappedRefinements));
+
+    return query;
+  }
+
+  private generateRefinementMapping() {
+    return this.config.refinementMapping.reduce((map, mapping) => Object.assign(map, mapping), {});
+  }
+
+  private extractRefinements(refinementString: string, navigationName: string): SelectedValueRefinement[] {
+    const refinementStrings = refinementString.split('~');
+
+    return <SelectedValueRefinement[]>refinementStrings.map((value) => ({ navigationName, type: 'Value', value: this.decode(value) }));
+  }
+
+  private extractUnmapped(refinementString: string): Array<SelectedValueRefinement | SelectedRangeRefinement> {
+    const refinementStrings = refinementString.split('~');
+    return refinementStrings
+      .map(this.decode)
+      .map((refinement) => {
+        const [navigationName, value] = refinement.split(/=|:/);
+        if (value.indexOf('..') >= 0) {
+          const [low, high] = value.split('..');
+          return <SelectedRangeRefinement>{ navigationName, low: Number(low), high: Number(high), type: 'Range' }
+        } else {
+          return <SelectedValueRefinement>{ navigationName, value, type: 'Value' };
+        }
+      });
+  }
+
+  private decode(value: string): string {
+    return decodeURIComponent(value.replace('+', ' '));
   }
 }
 
