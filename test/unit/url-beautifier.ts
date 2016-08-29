@@ -4,17 +4,17 @@ import { expect } from 'chai';
 
 describe('URL beautifier', () => {
   let beautifier: UrlBeautifier;
+  let query: Query;
 
-  beforeEach(() => beautifier = new UrlBeautifier());
+  beforeEach(() => {
+    beautifier = new UrlBeautifier();
+    query = new Query();
+  });
 
   describe('URL generator', () => {
     let generator: UrlGenerator;
-    let query: Query;
 
-    beforeEach(() => {
-      generator = new UrlGenerator(beautifier);
-      query = new Query();
-    });
+    beforeEach(() => generator = new UrlGenerator(beautifier));
 
     it('should convert a simple query to a URL', () => {
       query.withQuery('red apples');
@@ -204,6 +204,33 @@ describe('URL beautifier', () => {
 
         expect(() => parser.parse('/power+drill/orange/Drills/qc').build()).to.throw('token reference is invalid');
       });
+    });
+  });
+
+  describe('compatibility', () => {
+
+    beforeEach(() => beautifier = new UrlBeautifier({
+      refinementMapping: [{ b: 'brand' }, { f: 'fabric' }],
+      queryToken: 'k',
+      extraRefinementsParam: 'refs',
+      suffix: 'index.html'
+    }));
+
+    it('should convert from query to a URL and back', () => {
+      query.withQuery('duvet cover')
+        .withSelectedRefinements(refinement('brand', 'Duvet King'), refinement('fabric', 'linen'), refinement('price', 10, 40));
+
+      const origRequest = query.build();
+      const convertedRequest = beautifier.parse(beautifier.build(query)).build();
+      expect(convertedRequest.query).to.eql(origRequest.query);
+      expect(convertedRequest.refinements).to.have.deep.members(origRequest.refinements);
+    });
+
+    it('should convert from URL to a query and back', () => {
+      const url = '/duvet+cover/Duvet+King/linen/kbf/index.html?refs=price%3A10..40';
+
+      const convertedUrl = beautifier.build(beautifier.parse(url));
+      expect(convertedUrl).to.eq(url);
     });
   });
 

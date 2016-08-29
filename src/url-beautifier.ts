@@ -12,11 +12,16 @@ export class UrlBeautifier {
   private generator: UrlGenerator = new UrlGenerator(this);
   private parser: UrlParser = new UrlParser(this);
 
-  build = this.generator.build;
-  parse = this.parser.parse;
-
   constructor(config: BeautifierConfig = {}) {
     Object.assign(this.config, config);
+  }
+
+  parse(url: string) {
+    return this.parser.parse(url);
+  }
+
+  build(query: Query) {
+    return this.generator.build(query);
   }
 }
 
@@ -65,7 +70,7 @@ export class UrlGenerator {
     if (this.config.suffix) url += `/${this.config.suffix.replace(/^\/+/, '')}`;
     if (uri.query) url += `?${this.config.extraRefinementsParam}=${encodeURIComponent(uri.query)}`;
 
-    return url.replace(/\s|%20/, '+');
+    return url.replace(/\s|%20/g, '+');
   }
 
   private generateRefinementMap(refinements: SelectedRefinement[]): { map: any, keys: string[] } {
